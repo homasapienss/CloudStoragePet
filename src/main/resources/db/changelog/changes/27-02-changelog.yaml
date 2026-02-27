@@ -1,0 +1,105 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1772203898410-1
+      author: HOMASAPIENSS
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_roles
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+            tableName: roles
+  - changeSet:
+      id: 1772203898410-2
+      author: HOMASAPIENSS
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_users
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: username
+                  type: VARCHAR(255)
+              - column:
+                  name: password_hash
+                  type: VARCHAR(255)
+            tableName: users
+  - changeSet:
+      id: 1772203898410-3
+      author: HOMASAPIENSS
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_users_roles
+                  name: role_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_users_roles
+                  name: user_id
+                  type: BIGINT
+            tableName: users_roles
+  - changeSet:
+      id: 1772203898410-4
+      author: HOMASAPIENSS
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: name
+            constraintName: uc_roles_name
+            tableName: roles
+  - changeSet:
+      id: 1772203898410-5
+      author: HOMASAPIENSS
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: username
+            constraintName: uc_users_username
+            tableName: users
+  - changeSet:
+      id: 1772203898410-6
+      author: HOMASAPIENSS
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: role_id
+            baseTableName: users_roles
+            constraintName: fk_userol_on_role_entity
+            referencedColumnNames: id
+            referencedTableName: roles
+  - changeSet:
+      id: 1772203898410-7
+      author: HOMASAPIENSS
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: users_roles
+            constraintName: fk_userol_on_user_entity
+            referencedColumnNames: id
+            referencedTableName: users
+
