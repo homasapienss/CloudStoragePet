@@ -1,6 +1,5 @@
 package edu.homa.cloudStorage.services;
 
-import edu.homa.cloudStorage.dto.auth.req.SignInRequest;
 import edu.homa.cloudStorage.dto.auth.req.SignUpRequest;
 import edu.homa.cloudStorage.dto.auth.resp.SignUpResponse;
 import edu.homa.cloudStorage.entities.UserEntity;
@@ -20,8 +19,5 @@ public class AuthService {
     public SignUpResponse signUp(SignUpRequest signUpRequest) {
         UserEntity userEntity = userService.register(signUpRequest);
         return new SignUpResponse(userEntity.getUsername());
-    }
-    public void signIn(SignInRequest signInRequest) {
-
     }
 }
