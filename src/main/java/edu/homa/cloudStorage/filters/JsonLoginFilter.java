@@ -1,6 +1,7 @@
 package edu.homa.cloudStorage.filters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.homa.cloudStorage.dto.ErrorResponse;
 import edu.homa.cloudStorage.dto.auth.req.SignInRequest;
 import edu.homa.cloudStorage.dto.auth.resp.SignInResponse;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,7 +31,8 @@ public class JsonLoginFilter extends UsernamePasswordAuthenticationFilter {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json");
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-        response.getWriter().write("{\"error\":\"Bad credentials\"}");
+        //response.getWriter().write(objectMapper.writeValueAsString(new ErrorMessage(exception.getMessage())));
+        objectMapper.writeValue(response.getWriter(), new ErrorResponse(exception.getMessage()));
     };
 
     public JsonLoginFilter(AuthenticationManager authenticationManager) {

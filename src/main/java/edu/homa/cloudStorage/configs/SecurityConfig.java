@@ -1,6 +1,7 @@
 package edu.homa.cloudStorage.configs;
 
 import edu.homa.cloudStorage.filters.JsonLoginFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -69,7 +70,19 @@ public class SecurityConfig {
                         .clearAuthentication(true)
                         .deleteCookies("JSESSIONID")
                         .logoutSuccessHandler((request, response, authentication) ->
-                                response.setStatus(204))
+                        {
+                            boolean unauthorized =
+                                    authentication == null
+                                            || authentication instanceof
+                                            org.springframework.security.authentication.AnonymousAuthenticationToken
+                                            || !authentication.isAuthenticated();
+
+                            if (unauthorized) {
+                                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                                return;
+                            }
+                            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+                        })
                 )
                 .build();
     }
