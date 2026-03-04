@@ -47,10 +47,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http,
-                                                   AuthenticationManager authenticationManager,
                                                    SecurityContextRepository securityContextRepository,
-                                                   SessionAuthenticationStrategy sessionAuthenticationStrategy) throws Exception {
-        JsonLoginFilter jsonLoginFilter = new JsonLoginFilter(authenticationManager);
+                                                   SessionAuthenticationStrategy sessionAuthenticationStrategy,
+                                                   JsonLoginFilter jsonLoginFilter) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
