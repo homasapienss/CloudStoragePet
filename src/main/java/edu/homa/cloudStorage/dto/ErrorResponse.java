@@ -1,6 +1,6 @@
 package edu.homa.cloudStorage.dto;
 
-public record ErrorMessage(
+public record ErrorResponse(
         String message
 ) {
 }

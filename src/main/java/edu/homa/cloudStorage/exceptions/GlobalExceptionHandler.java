@@ -1,6 +1,6 @@
 package edu.homa.cloudStorage.exceptions;
 
-import edu.homa.cloudStorage.dto.ErrorMessage;
+import edu.homa.cloudStorage.dto.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<ErrorMessage> handleUsernameAlreadyExists(UserAlreadyExistsException e) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessage(e.getMessage()));
+    public ResponseEntity<ErrorResponse> handleUsernameAlreadyExists(UserAlreadyExistsException e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(e.getMessage()));
     }
 
     @ExceptionHandler
-    public ResponseEntity<ErrorMessage> handleApplicationException(ApplicationException applicationException) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorMessage(applicationException.getMessage()));
+    public ResponseEntity<ErrorResponse> handleApplicationException(ApplicationException e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse(e.getMessage()));
     }
 
     @ExceptionHandler
-    public ResponseEntity<ErrorMessage> handleException(Exception ex){
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorMessage(ex.getMessage()));
+    public ResponseEntity<ErrorResponse> handleException(Exception e){
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse(e.getMessage()));
     }
 }
